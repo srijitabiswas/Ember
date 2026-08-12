@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111111" />
+
+    <!-- Primary SEO -->
+    <title>EMBER — Modern Mediterranean &amp; European Fine Dining</title>
+    <meta
+      name="description"
+      content="EMBER is a modern fine-dining restaurant serving Mediterranean and European fusion cuisine. Reserve a table, explore our seasonal menu, and discover an immersive dining experience crafted by our chefs."
+    />
+    <meta name="author" content="EMBER" />
+    <meta
+      name="keywords"
+      content="EMBER restaurant, fine dining, Mediterranean restaurant, European fusion, restaurant reservation, tasting menu, romantic restaurant"
+    />
+    <link rel="canonical" href="https://www.ember-restaurant.com/" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:site_name" content="EMBER" />
+    <meta property="og:title" content="EMBER — Modern Mediterranean &amp; European Fine Dining" />
+    <meta
+      property="og:description"
+      content="A modern fine-dining restaurant serving Mediterranean and European fusion cuisine. Reserve a table and discover an immersive dining experience."
+    />
+    <meta property="og:image" content="https://www.ember-restaurant.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://www.ember-restaurant.com/" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="EMBER — Modern Mediterranean &amp; European Fine Dining" />
+    <meta
+      name="twitter:description"
+      content="A modern fine-dining restaurant serving Mediterranean and European fusion cuisine. Reserve a table and discover an immersive dining experience."
+    />
+    <meta name="twitter:image" content="https://www.ember-restaurant.com/og-image.jpg" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="mask-icon" href="/favicon.svg" color="#5f6f52" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts: preconnect first, then a single batched request for every
+         weight actually used across the UI (see tailwind theme in index.css) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured data: helps search engines understand this is a restaurant -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "EMBER",
+        "description": "Modern Mediterranean & European fusion fine dining.",
+        "servesCuisine": ["Mediterranean", "European"],
+        "priceRange": "$$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "24 Harbourview Lane",
+          "addressLocality": "Downtown District",
+          "postalCode": "00000",
+          "addressCountry": "US"
+        },
+        "telephone": "+1-555-014-2200",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Sunday"],
+            "opens": "17:30",
+            "closes": "23:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Friday", "Saturday"],
+            "opens": "17:30",
+            "closes": "23:30"
+          }
+        ],
+        "url": "https://www.ember-restaurant.com/"
+      }
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <div style="padding: 2rem; font-family: sans-serif; text-align: center">
+        EMBER needs JavaScript enabled to run. Please enable JavaScript in your
+        browser to view this site.
+      </div>
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

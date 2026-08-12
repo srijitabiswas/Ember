@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+/**
+ * EMBER — design tokens
+ * Tailwind v4 uses CSS-first configuration: every custom token below is
+ * generated into a matching utility automatically (e.g. --color-accent
+ * produces bg-accent / text-accent / border-accent / ring-accent …).
+ * There is intentionally no tailwind.config.js — this file *is* the config.
+ */
+@theme {
+  /* ---- Color palette (from the brand brief) ---------------------------- */
+  --color-hero: #111111; /* Hero background */
+  --color-hero-ink: #eef2e8; /* Text on the dark hero */
+
+  --color-bg: #eef2e8; /* Primary background */
+  --color-bg-alt: #f8f8f3; /* Alternate background */
+  --color-surface: #e3e8dd; /* Card surface */
+
+  --color-accent: #5f6f52; /* Primary accent — muted olive */
+  --color-accent-dark: #4a5741; /* Hover / pressed state */
+  --color-accent-light: #8a9a7c; /* Tints, subtle borders on dark */
+
+  --color-clay: #a67c52; /* Secondary accent — warm terracotta */
+  --color-clay-dark: #8a6743;
+
+  --color-ink: #202020; /* Primary text */
+  --color-ink-soft: #666666; /* Secondary text */
+  --color-ink-faint: #93968f; /* Tertiary / captions */
+
+  --color-line: #dde3d4; /* Hairline borders on light sections */
+  --color-line-dark: rgba(238, 242, 232, 0.16); /* Hairline borders on hero */
+
+  /* ---- Typography -------------------------------------------------------
+   * display  → large editorial headlines (Playfair Display)
+   * accent   → italic serif for eyebrows / quotes (Cormorant Garamond)
+   * sans     → body copy (Inter)
+   * numeric  → prices, stats, nav labels (Space Grotesk)
+   */
+  --font-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
+  --font-accent: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-numeric: "Space Grotesk", "Inter", sans-serif;
+
+  /* ---- Motion ------------------------------------------------------------ */
+  --ease-premium: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-out-premium: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ---- Breakpoints (extending defaults with a wide "desktop" tier) ------- */
+  --breakpoint-xs: 30rem;
+  --breakpoint-3xl: 100rem;
+}
+
+/* ---------------------------------------------------------------------------
+ * Base layer
+ * ------------------------------------------------------------------------ */
+@layer base {
+  * {
+    @apply border-line;
+  }
+
+  html {
+    /* Lenis owns smooth scrolling; native smooth-scroll would fight it. */
+    scroll-behavior: auto;
+  }
+
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-hero-ink);
+  }
+
+  /* Consistent, visible focus ring for keyboard users across every element,
+     without adding a visible ring for mouse/touch interaction. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-medium;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Slim, editorial scrollbar (progressively enhanced — no effect on
+     browsers that don't support the WebKit scrollbar pseudo-elements). */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-alt);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent-light);
+    border-radius: 999px;
+    border: 2px solid var(--color-bg-alt);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-accent);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Component-layer helpers
+ * Small, structural, reused-everywhere primitives that are awkward to
+ * express as one-off utility strings (mask reveals, grain texture, the
+ * scroll-cue dot). Everything else stays in Tailwind utility classes.
+ * ------------------------------------------------------------------------ */
+@layer components {
+  /* Wrap any element that GSAP will clip-path / translate-reveal in this to
+     guarantee no horizontal scrollbar or overflow flash appears mid-animation. */
+  .reveal-mask {
+    overflow: hidden;
+  }
+
+  /* Subtle cinematic film-grain, used sparingly (Hero only) for texture
+     without shipping an image asset. Pure CSS, ~0 performance cost. */
+  .bg-grain {
+    position: relative;
+  }
+  .bg-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .scroll-cue-dot {
+    animation: scroll-cue 2.2s var(--ease-premium) infinite;
+  }
+
+  /* Swiper ships its own (non-Tailwind) class names for pagination bullets —
+     restyled here once, in brand colors, rather than fighting specificity
+     with per-instance overrides in the Testimonials component. */
+  .testimonial-pagination .swiper-pagination-bullet {
+    width: 0.4rem;
+    height: 0.4rem;
+    background-color: var(--color-ink-soft);
+    opacity: 0.3;
+    transition: all 0.3s var(--ease-premium);
+    margin: 0 0.25rem !important;
+  }
+  .testimonial-pagination .swiper-pagination-bullet-active {
+    width: 1.4rem;
+    border-radius: 9999px;
+    background-color: var(--color-accent);
+    opacity: 1;
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0.9rem);
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Motion accessibility
+ * GSAP/Lenis are also gated in JS via usePrefersReducedMotion, but this is
+ * the CSS-level safety net for ordinary transitions and native behaviors.
+ * ------------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
