@@ -19,12 +19,6 @@ export default defineConfig({
     // initial payload stays lean.
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom'],
-          'vendor-motion': ['gsap', '@gsap/react', 'lenis', 'motion'],
-          'vendor-forms': ['react-hook-form'],
-          'vendor-swiper': ['swiper'],
-        },
       },
     },
   },
